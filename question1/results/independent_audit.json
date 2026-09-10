@@ -1,0 +1,127 @@
+{
+  "passed": true,
+  "source_sha256": "9bd5e529e814a281485f58f6577fe8e1d53375544023fb47a46cd071252311d7",
+  "release_files_sha256": {
+    "q1.py": "9bd5e529e814a281485f58f6577fe8e1d53375544023fb47a46cd071252311d7",
+    "q1_detail.csv": "ef7ae2c20124c966c1f1ea8bc9b53dbb7115e0b2d853ba7558c90d613881d499",
+    "q1_summary.json": "73e94ab2b5e385cf8d06c58b58f6185126ddccb973abb21d41897eaf38e8004a",
+    "result1.xlsx": "d8e085e9d3ebd144e0c517d580e00e9727d12a0df927d056b510303bf453235f"
+  },
+  "source_review": {
+    "objective_exactly_sum_price_times_g": true,
+    "balance_g_plus_pv_minus_r_plus_d_equals_load_plus_c": true,
+    "nonnegative_g_no_external_grid_purchase_cap": true,
+    "r_bounds_zero_to_pv_only": true,
+    "c_bound_power_dt_times_binary_u": true,
+    "d_bound_power_dt_times_one_minus_u": true,
+    "soc_transition_eta_charge_09_eta_discharge_09": true,
+    "soc_range_1200_to_10800_including_initial": true,
+    "initial_and_terminal_soc_6000": true,
+    "u_binary_via_integrality": true,
+    "no_extra_d_le_load_constraint": true,
+    "no_purchased_energy_curtailment_variable": true,
+    "no_objective_tie_breaker_or_terminal_reward": true,
+    "n_864_optimization_variables_144_binaries_S0_eliminated": true
+  },
+  "physics_tolerance_kwh": 1e-08,
+  "all_144_slots_physics": {
+    "balance_abs_kwh": 3.410605131648481e-13,
+    "state_transition_abs_kwh": 8.313350008393172e-13,
+    "state_continuity_abs_kwh": 0.0,
+    "nonnegative_flow_violation_kwh": 0.0,
+    "pv_curtail_bound_violation_kwh": 0.0,
+    "charge_binary_violation_kwh": 1.3927558125385315e-11,
+    "discharge_binary_violation_kwh": 6.106226635438361e-12,
+    "binary_integrality_error": 1.6713069750462377e-14,
+    "binary_bound_violation": 1.6713069750462377e-14,
+    "soc_bound_violation_kwh": 0.0,
+    "initial_soc_abs_kwh": 0.0,
+    "final_soc_abs_kwh": 0.0,
+    "simultaneous_charge_discharge_max_kwh": 0.0
+  },
+  "all_144_slots_prices_load_pv_and_cost_match_original": true,
+  "all_144_slot_labels_correct": true,
+  "all_144_excel_purchases_match_csv": true,
+  "max_excel_purchase_difference_kwh": 4.547473508864641e-13,
+  "all_six_excel_blocks_and_initial_terminal_soc_match_csv": true,
+  "all_eight_excel_summary_values_match": true,
+  "excel_error_cells": 0,
+  "csv_json_objective_and_totals_match": true,
+  "objective_matches_independent_milp_yuan": 0.0,
+  "milp_gap": 0.0,
+  "same_source_rerun_csv_byte_identical_and_summary_exactly_equal": true,
+  "input_original_sha256": "66b87134f5ecccd68184d3539bb1293ef039f9e0fdd955a589b9bfa7f227c377",
+  "result": {
+    "cost_yuan": 35126.948589289634,
+    "purchase_kwh": 59482.69899835391,
+    "no_storage_cost_yuan": 48052.046590846665,
+    "saving_fraction": 0.26898121762870153,
+    "charge_kwh": 20740.66613168725,
+    "discharge_kwh": 16799.939566666668,
+    "initial_soc_kwh": 6000.0,
+    "final_soc_kwh": 6000.0,
+    "min_soc_kwh": 1200.0,
+    "max_soc_kwh": 10800.0,
+    "pv_curtailment_kwh": 0.0
+  },
+  "specified_six_purchase_slots": [
+    {
+      "interval": "10:00-10:10",
+      "purchase_kwh": 0.0
+    },
+    {
+      "interval": "12:00-12:10",
+      "purchase_kwh": 480.4124499999999
+    },
+    {
+      "interval": "14:00-14:10",
+      "purchase_kwh": 0.0
+    },
+    {
+      "interval": "16:00-16:10",
+      "purchase_kwh": 445.4316500000001
+    },
+    {
+      "interval": "18:00-18:10",
+      "purchase_kwh": 531.8940499999999
+    },
+    {
+      "interval": "20:00-20:10",
+      "purchase_kwh": 0.0
+    }
+  ],
+  "six_four_hour_storage_blocks": [
+    {
+      "interval": "00:00-04:00",
+      "charge_kwh": 4499.999999999999,
+      "discharge_kwh": 0.0
+    },
+    {
+      "interval": "04:00-08:00",
+      "charge_kwh": 833.3333333333333,
+      "discharge_kwh": 6365.8412
+    },
+    {
+      "interval": "08:00-12:00",
+      "charge_kwh": 4787.964288065848,
+      "discharge_kwh": 1702.9969833333334
+    },
+    {
+      "interval": "12:00-16:00",
+      "charge_kwh": 5286.0351769547315,
+      "discharge_kwh": 91.1013833333335
+    },
+    {
+      "interval": "16:00-20:00",
+      "charge_kwh": 0.0,
+      "discharge_kwh": 5780.1318833333335
+    },
+    {
+      "interval": "20:00-24:00",
+      "charge_kwh": 5333.333333333332,
+      "discharge_kwh": 2859.8681166666665
+    }
+  ],
+  "findings": [],
+  "scope": "只读核验发布版代码、全部144段CSV、JSON和Excel数值；独立MILP交叉验证费用；未进行Excel视觉渲染检查。"
+}

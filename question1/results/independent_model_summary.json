@@ -1,0 +1,32 @@
+{
+  "objective_yuan": 35126.948589289634,
+  "normal_purchase_kwh": 59482.69899835391,
+  "charge_kwh": 20740.666131687245,
+  "discharge_kwh": 16799.939566666668,
+  "pv_curtail_kwh": 0.0,
+  "initial_soc_kwh": 6000.0,
+  "final_soc_kwh": 6000.0,
+  "min_soc_kwh": 1200.0,
+  "max_soc_kwh": 10800.0,
+  "milp_gap": 0.0,
+  "milp_dual_bound": 35126.948589289634,
+  "milp_nodes": 1,
+  "status": 0,
+  "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+  "input_sha256": "66b87134f5ecccd68184d3539bb1293ef039f9e0fdd955a589b9bfa7f227c377",
+  "checks": {
+    "max_balance_abs_kwh": 1.1368683772161603e-13,
+    "max_soc_transition_abs_kwh": 8.810729923425242e-13,
+    "initial_soc_abs_error": 0.0,
+    "final_soc_abs_error": 0.0,
+    "max_soc_bound_violation": 0.0,
+    "max_nonnegative_violation": 0.0,
+    "max_pv_curtail_bound_violation": 0.0,
+    "max_charge_power_binary_violation": 0.0,
+    "max_discharge_power_binary_violation": 0.0,
+    "max_binary_integrality_error": 1.3322676295501878e-15,
+    "max_simultaneous_charge_discharge": 0.0
+  },
+  "difference_from_prior_q1_cost_yuan": 0.0,
+  "formulation_note": "Only screenshot constraints; no d<=load constraint; no purchased-energy curtailment; objective exactly sum(p*g)."
+}
