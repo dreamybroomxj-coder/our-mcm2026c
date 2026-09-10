@@ -1,0 +1,75 @@
+{
+  "model": "用户2026-09-10截图中的问题一MILP",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 75,
+      "sha256": "3411f88d0801a72dfc303bb21c66d37b28e79fef0f70607e604c8a097658f062"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4988,
+      "sha256": "055888cffd030d7a11468d8c6a2ab578c2a77bd774ec31a0a00cb32def6e5340"
+    },
+    {
+      "path": "input/constraints.png",
+      "bytes": 112385,
+      "sha256": "ee141633e650be71de23882ab180aee70d6eb82b7289eb2c63924835d41fd0a3"
+    },
+    {
+      "path": "input/result1模板.xlsx",
+      "bytes": 13323,
+      "sha256": "28360e0974e7d6065394a8aba4e14a86773ae0036cc7d3ea1b211b515b03d688"
+    },
+    {
+      "path": "input/附件1.xlsx",
+      "bytes": 16003,
+      "sha256": "66b87134f5ecccd68184d3539bb1293ef039f9e0fdd955a589b9bfa7f227c377"
+    },
+    {
+      "path": "q1.py",
+      "bytes": 13842,
+      "sha256": "9bd5e529e814a281485f58f6577fe8e1d53375544023fb47a46cd071252311d7"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 43,
+      "sha256": "5441d224d58b4896c64746e10e06885e49c81c4dd9524510fc6b85134700ac08"
+    },
+    {
+      "path": "results/independent_audit.json",
+      "bytes": 4393,
+      "sha256": "43a26853f1e771ae2e38a4164cd2449cf73084a04a03c64cc3d05edd08333949"
+    },
+    {
+      "path": "results/independent_audit.md",
+      "bytes": 2068,
+      "sha256": "41a1670d718ceea783fdcd6fda76afbbbe89a1ae00ed047dd58eaf732f786773"
+    },
+    {
+      "path": "results/independent_model_summary.json",
+      "bytes": 1246,
+      "sha256": "c72247b3b1bf0f936b52a2c9c407e27342f1960e3ff87d29f8678df036981bb2"
+    },
+    {
+      "path": "results/q1_detail.csv",
+      "bytes": 17595,
+      "sha256": "ef7ae2c20124c966c1f1ea8bc9b53dbb7115e0b2d853ba7558c90d613881d499"
+    },
+    {
+      "path": "results/q1_summary.json",
+      "bytes": 1404,
+      "sha256": "73e94ab2b5e385cf8d06c58b58f6185126ddccb973abb21d41897eaf38e8004a"
+    },
+    {
+      "path": "results/result1.xlsx",
+      "bytes": 11299,
+      "sha256": "d8e085e9d3ebd144e0c517d580e00e9727d12a0df927d056b510303bf453235f"
+    },
+    {
+      "path": "results/结果说明.md",
+      "bytes": 1069,
+      "sha256": "f4f80c8b4d50371f2956e2233cc68f61438bf6887a7ba8885c49ed976c8fd584"
+    }
+  ]
+}
