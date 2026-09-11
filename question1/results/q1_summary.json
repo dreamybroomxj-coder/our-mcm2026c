@@ -34,7 +34,7 @@
   },
   "data_preprocessing": "00:00复制24:00瞬时值，每10分钟取两端点算术平均",
   "preprocessed_file": "F:\\work\\mcm2026\\CUMCM2026Problems\\C题\\附件\\question1\\results\\preprocessed_data.xlsx",
-  "numpy_version": "2.3.2",
+  "numpy_version": "2.3.5",
   "scipy_version": "1.16.3",
   "input_sha256": "66b87134f5ecccd68184d3539bb1293ef039f9e0fdd955a589b9bfa7f227c377"
 }

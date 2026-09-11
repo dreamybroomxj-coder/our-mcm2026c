@@ -69,3 +69,13 @@
 ```
 
 三种改进中，自适应加权 Baseline 最优，全年 WAPE 为 6.398%，略优于原 7 天均值的 6.448%。
+
+## 瞬时端点到区间平均值
+
+按照每天 00:00 可获得真实边界值的假设：模型仍预测 00:10 至次日 00:00 共 144 个端点，再由相邻端点平均得到 144 个 10 分钟区间值。
+
+- `interval_preprocessing.py`：生成附件 1、附件 2 的统一区间预处理表；
+- `区间平均预处理数据.xlsx`：含处理说明、论文展示表、全年宽表和长表；
+- `interval_forecast_postprocess.py`：转换所有既有预测并重新评价；
+- `interval_results/baseline_interval_predictions.xlsx`：后续优化 pipeline 使用的区间 baseline；
+- `interval_results/全部模型区间预测与指标.xlsx`：全部区间预测和指标。
