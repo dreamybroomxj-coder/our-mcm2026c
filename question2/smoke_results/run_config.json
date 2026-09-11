@@ -1,0 +1,23 @@
+{
+  "input": "F:\\work\\mcm2026\\CUMCM2026Problems\\C题\\附件\\附件2.xlsx",
+  "config": {
+    "start_date": "2025-02-01",
+    "end_date": "2025-02-02",
+    "tree_refit_every": 1,
+    "sarima_refit_every": 30,
+    "n_estimators": 20,
+    "max_depth": 5,
+    "learning_rate": 0.05,
+    "sarima_maxiter": 10,
+    "seed": 2026
+  },
+  "methods": [
+    "Baseline",
+    "XGBoost",
+    "LightGBM",
+    "SARIMA"
+  ],
+  "prediction_days": 2,
+  "periods_per_day": 144,
+  "information_boundary": "预测某日时仅使用此前日期的真实数据"
+}
