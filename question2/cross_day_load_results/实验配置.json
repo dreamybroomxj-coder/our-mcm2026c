@@ -1,0 +1,22 @@
+{
+  "planning_period": [
+    "2025-02-01",
+    "2025-12-30"
+  ],
+  "sample_days": 333,
+  "ratio_window": 28,
+  "ratio_statistic": "median",
+  "xgb_n_estimators": 100,
+  "information_boundary": "规划日00:00时仅使用前一日及更早的完整观测",
+  "base_models": [
+    "Baseline",
+    "XGBoost",
+    "LightGBM",
+    "SARIMA"
+  ],
+  "boundary_methods": [
+    "XGBoost跨日边界",
+    "历史跨日比例",
+    "目标时刻上周同期"
+  ]
+}

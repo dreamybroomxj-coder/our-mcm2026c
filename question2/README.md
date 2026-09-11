@@ -70,6 +70,16 @@
 
 三种改进中，自适应加权 Baseline 最优，全年 WAPE 为 6.398%，略优于原 7 天均值的 6.448%。
 
+## 跨日负载边界预测
+
+`cross_day_load_boundary.py` 对比以下三种次日 00:10 补点方法：
+
+- 独立 XGBoost 跨日边界模型；
+- 最近 28 个历史跨日比例的滚动中位数；
+- 目标时刻上周同期。
+
+结果位于 `cross_day_load_results/`，其中 `跨日负载预测与评价.xlsx` 汇总逐日预测、综合指标、逐月指标、滚动比例和 XGBoost 特征重要性。最终区间平均值采用“目标时刻上周同期”表现最好。
+
 ## 瞬时端点到区间平均值
 
 按照每天 00:00 可获得真实边界值的假设：模型仍预测 00:10 至次日 00:00 共 144 个端点，再由相邻端点平均得到 144 个 10 分钟区间值。
@@ -79,3 +89,13 @@
 - `interval_forecast_postprocess.py`：转换所有既有预测并重新评价；
 - `interval_results/baseline_interval_predictions.xlsx`：后续优化 pipeline 使用的区间 baseline；
 - `interval_results/全部模型区间预测与指标.xlsx`：全部区间预测和指标。
+
+## 最终规划模型输入
+
+最终选择 XGBoost 负载预测和自适应加权 Baseline 光伏预测。运行：
+
+```powershell
+& 'F:\miniconda3\envs\fond\python.exe' '.\export_planning_forecast.py'
+```
+
+输出位于 `planning_input/`，包括 Excel、CSV、压缩 NPZ 和输入哈希清单。规划模型的主输入为 `规划模型预测输入` 表，共 334×144=48,096 行。

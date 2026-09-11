@@ -1,0 +1,28 @@
+{
+  "load_model": "XGBoost",
+  "pv_model": "自适应加权Baseline",
+  "prediction_period": [
+    "2025-02-01",
+    "2025-12-31"
+  ],
+  "days": 334,
+  "periods_per_day": 144,
+  "records": 48096,
+  "load_input": {
+    "path": "F:\\work\\mcm2026\\CUMCM2026Problems\\C题\\附件\\question2\\interval_results\\XGBoost_负载_区间预测.npy",
+    "sha256": "7b294160087bfc1095f9763a4cb9c3765e99f6c0024eca387a7253c4403193a3"
+  },
+  "pv_input": {
+    "path": "F:\\work\\mcm2026\\CUMCM2026Problems\\C题\\附件\\question2\\interval_results\\自适应加权Baseline_光伏_区间预测.npy",
+    "sha256": "6d8400fd095c53567d2413f7be52dbdcad145fee3ed041630d819900b2730e0b"
+  },
+  "price_input": {
+    "path": "F:\\work\\mcm2026\\CUMCM2026Problems\\C题\\附件\\附件1.xlsx",
+    "sha256": "66b87134f5ecccd68184d3539bb1293ef039f9e0fdd955a589b9bfa7f227c377"
+  },
+  "outputs": [
+    "规划模型预测输入.xlsx",
+    "规划模型预测输入.csv",
+    "规划模型预测输入.npz"
+  ]
+}
