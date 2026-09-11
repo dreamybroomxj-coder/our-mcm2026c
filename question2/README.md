@@ -51,3 +51,21 @@
 | SARIMA | 光伏 | 157.216 | 311.374 | 6.609% |
 
 负载方面 XGBoost 与 LightGBM 几乎持平，XGBoost 略优；光伏方面在没有天气预报变量时，7 天同期均值 baseline 的全年结果最好。
+
+## 光伏改进实验
+
+新增的日总量分解、晴空包络短期外推和自适应加权 Baseline 位于：
+
+- `improved_pv_forecast.py`；
+- `improved_pv_results/光伏改进模型预测与对比.xlsx`；
+- `improved_pv_results/光伏模型综合指标.csv`；
+- `improved_pv_results/光伏模型逐月指标.csv`；
+- `光伏改进实验报告.md`。
+
+运行命令：
+
+```powershell
+& 'F:\miniconda3\envs\fond\python.exe' '.\improved_pv_forecast.py'
+```
+
+三种改进中，自适应加权 Baseline 最优，全年 WAPE 为 6.398%，略优于原 7 天均值的 6.448%。

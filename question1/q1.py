@@ -2,7 +2,8 @@
 
 运行：python q1.py
 依赖：numpy、scipy、openpyxl；不依赖其余问题的代码或商业求解器。
-单位：输入功率为 kW，决策变量为每10分钟的电量 kWh，费用为元。
+单位：附件数据为每10分钟的瞬时端点值；模型使用两端点平均值。
+功率为 kW，决策变量为每10分钟的电量 kWh，费用为元。
 """
 from __future__ import annotations
 
@@ -47,8 +48,51 @@ def right_end_minute(value) -> int:
     return 60 * int(hour) + int(minute)
 
 
-def read_data(path: Path) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """附件1首行为表头，随后144行：时间、电价、负载功率、光伏功率。"""
+def endpoint_label(minute: int) -> str:
+    """生成瞬时端点标签，末点使用24:00以避免与当日00:00混淆。"""
+    if minute == 1440:
+        return "24:00"
+    return f"{minute // 60:02d}:{minute % 60:02d}"
+
+
+def write_preprocessed_data(path: Path, endpoint_data: np.ndarray,
+                            interval_data: np.ndarray) -> None:
+    """暂存补齐后的瞬时端点和供模型使用的区间平均值。"""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    book = openpyxl.Workbook()
+    endpoints = book.active
+    endpoints.title = "瞬时端点"
+    endpoints.append(["时间", "瞬时电价_元每kWh", "瞬时小区负载_kW", "瞬时光伏功率_kW", "备注"])
+    for i, values in enumerate(endpoint_data):
+        note = "复制原始24:00数值" if i == 0 else "来自附件1"
+        endpoints.append([endpoint_label(i * 10), *map(float, values), note])
+
+    intervals = book.create_sheet("区间平均")
+    intervals.append(["时间段", "平均电价_元每kWh", "平均小区负载_kW",
+                      "平均光伏功率_kW", "左端点", "右端点"])
+    for i, values in enumerate(interval_data):
+        intervals.append([interval_label(i), *map(float, values),
+                          endpoint_label(i * 10), endpoint_label((i + 1) * 10)])
+
+    for sheet in book:
+        sheet.freeze_panes = "A2"
+        sheet.auto_filter.ref = sheet.dimensions
+        for cell in sheet[1]:
+            cell.font = Font(name="宋体", size=11, bold=True)
+            cell.fill = PatternFill("solid", fgColor="DCE6F1")
+        for row in sheet.iter_rows(min_row=2):
+            for cell in row:
+                cell.font = Font(name="宋体", size=11)
+                if isinstance(cell.value, (int, float)):
+                    cell.number_format = "#,##0.0000"
+        for column in range(1, sheet.max_column + 1):
+            sheet.column_dimensions[openpyxl.utils.get_column_letter(column)].width = 24
+    book.save(path)
+    book.close()
+
+
+def read_data(path: Path, preprocessed_path: Path) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """读取144个瞬时端点，补入00:00后计算144个区间的端点平均值。"""
     book = openpyxl.load_workbook(path, read_only=True, data_only=True)
     try:
         rows = list(book.worksheets[0].values)
@@ -61,13 +105,16 @@ def read_data(path: Path) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     minutes = [right_end_minute(row[0]) for row in rows[1:]]
     if minutes != list(range(10, 1441, 10)):
         raise ValueError("时间应为00:10至次日00:00，每10分钟一条。")
-    data = np.asarray([row[1:] for row in rows[1:]], dtype=float)
-    if not np.isfinite(data).all() or (data < 0).any() or (data[:, 0] <= 0).any():
+    raw_data = np.asarray([row[1:] for row in rows[1:]], dtype=float)
+    if not np.isfinite(raw_data).all() or (raw_data < 0).any() or (raw_data[:, 0] <= 0).any():
         raise ValueError("数据必须完整、有限、非负，且电价严格为正。")
-    price = data[:, 0]
-    # 00:10记录对应00:00—00:10，按区间平均功率换算电量。
-    load = data[:, 1] * STEP_HOURS
-    pv = data[:, 2] * STEP_HOURS
+    # 原始24:00数值复制为当日00:00，再对每个10分钟区间取左右端点算术平均。
+    endpoint_data = np.vstack([raw_data[-1], raw_data])
+    interval_data = (endpoint_data[:-1] + endpoint_data[1:]) / 2
+    write_preprocessed_data(preprocessed_path, endpoint_data, interval_data)
+    price = interval_data[:, 0]
+    load = interval_data[:, 1] * STEP_HOURS
+    pv = interval_data[:, 2] * STEP_HOURS
     return load, pv, price
 
 
@@ -205,7 +252,8 @@ def write_outputs(output, template, solution, load, pv, price, summary):
     notes = book.create_sheet("口径说明")
     for row in [
         ["项目", "说明"],
-        ["时间对应", "附件00:10对应00:00-00:10；输出副本修正原模板偏移，源文件未修改。"],
+        ["数据预处理", "附件数据视为瞬时端点值；00:00复制24:00数值，每个10分钟区间取两端点算术平均。"],
+        ["时间对应", "区间平均数据依次对应00:00-00:10至23:50-24:00；源附件未修改。"],
         ["供电路径", "外网和光伏可直接供负载，也可充电；容量只约束当时电池储电。"],
         ["效率", "主解释为充电、放电各90%；充放电量为微网侧电量。"],
         ["储能约束", "额定12000kWh，运行范围1200至10800kWh，日初日末均6000kWh。"],
@@ -242,10 +290,12 @@ def main():
     parser.add_argument("--output", type=Path, default=ROOT / "results")
     args = parser.parse_args()
     # 防止用户把输出目录指向输入目录而意外覆盖任何输入文件。
-    output_files = [args.output / name for name in ("result1.xlsx", "q1_detail.csv", "q1_summary.json")]
+    output_files = [args.output / name for name in
+                    ("result1.xlsx", "q1_detail.csv", "q1_summary.json", "preprocessed_data.xlsx")]
     if any(p.resolve() in (args.input.resolve(), args.template.resolve()) for p in output_files):
         raise ValueError("输出文件与输入或模板重合，请指定其他输出目录。")
-    load, pv, price = read_data(args.input)
+    preprocessed_path = args.output / "preprocessed_data.xlsx"
+    load, pv, price = read_data(args.input, preprocessed_path)
     solution = solve(load, pv, price)
     checks = validate(solution, load, pv)
     baseline = float(price @ np.maximum(load - pv, 0))
@@ -260,6 +310,8 @@ def main():
         "mip_gap": solution["mip_gap"], "mip_dual_bound_yuan": solution["mip_dual_bound"],
         "solver_message": solution["solver_message"],
         "eta_charge": ETA_C, "eta_discharge": ETA_D, "checks": checks,
+        "data_preprocessing": "00:00复制24:00瞬时值，每10分钟取两端点算术平均",
+        "preprocessed_file": str(preprocessed_path.resolve()),
         "numpy_version": np.__version__, "scipy_version": scipy.__version__,
         "input_sha256": hashlib.sha256(args.input.read_bytes()).hexdigest(),
     }
@@ -268,6 +320,7 @@ def main():
     print(f"全天购电量：{summary['purchase_kwh']:,.4f} kWh")
     print(f"无储能费用：{baseline:,.2f} 元；节约：{summary['saving_fraction']:.2%}")
     print("物理约束检查：通过")
+    print(f"预处理数据：{preprocessed_path.resolve()}")
     print(f"弃光量：{summary['pv_curtailment_kwh']:.4f} kWh；MILP相对最优间隙：{summary['mip_gap']:.2e}")
     print(f"结果目录：{args.output.resolve()}")
 

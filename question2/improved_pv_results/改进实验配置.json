@@ -1,0 +1,17 @@
+{
+  "prediction_period": [
+    "2025-02-01",
+    "2025-12-31"
+  ],
+  "information_boundary": "每个预测日仅使用该日0:00以前的历史数据",
+  "new_models": [
+    "日总量+归一化曲线",
+    "晴空包络短期外推",
+    "自适应加权Baseline"
+  ],
+  "energy_profile_n_estimators": 100,
+  "adaptive_calibration_days": 28,
+  "clear_sky_history_days": 42,
+  "clear_sky_quantile": 0.9,
+  "seed": 2026
+}
