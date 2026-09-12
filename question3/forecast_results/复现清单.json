@@ -1,0 +1,53 @@
+{
+  "purpose": "问题三光伏小时预报还原为十分钟区间预测",
+  "output_period": [
+    "2025-02-01",
+    "2025-12-31"
+  ],
+  "methods": [
+    "A_线性插值",
+    "B_历史形状",
+    "C_残差同化"
+  ],
+  "selection": "同发布时间此前28天滚动日MAE最小；不足7天用A",
+  "historical_shape_days": 28,
+  "recent_residual_hours": 3,
+  "bias_decay_hours": 3.0,
+  "extra_0010_rule": "发布日前7个完整日的00:10真实端点平均，再与24:00预测端点取平均",
+  "reference_access": "只读取演示数据用于参考格式.xlsx第一张表第一行表头",
+  "inputs": {
+    "附件\\附件2.xlsx": "2e95fd446bfafa0d8c59577b5c2e2ea8b3f1def20dde54a3062556f4da9b4c72",
+    "附件\\附件3.xlsx": "8a61b06c52bd0d639a1cc37c61a7d9f5b75edcbca718f64c1bd3498ec9f9d843"
+  },
+  "reference_header_source": "演示数据用于参考格式.xlsx",
+  "program": {
+    "附件\\question3\\build_pv_interval_forecasts.py": "8ce868fa41184a250398d9feb713599eca3781460c2c9453817e3324d69d124d"
+  },
+  "output": {
+    "附件\\question3\\问题三_光伏区间预测.xlsx": "5b73a25c8aa68f779f3c8552ff1669a42bd3e5e0b55681ab68c822d5ae0b48d5",
+    "sheet_shapes": {
+      "00时预报": [
+        335,
+        146
+      ],
+      "06时预报": [
+        335,
+        110
+      ],
+      "12时预报": [
+        335,
+        74
+      ],
+      "18时预报": [
+        335,
+        38
+      ]
+    }
+  },
+  "runtime": {
+    "python": "3.13.5",
+    "numpy": "2.3.2",
+    "pandas": "2.3.2"
+  },
+  "reproduce_from_project_root": "python 附件/question3/build_pv_interval_forecasts.py"
+}

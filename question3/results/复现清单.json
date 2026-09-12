@@ -1,0 +1,33 @@
+{
+  "purpose": "同目标时刻配对比较上一发布时刻延伸预报与当前最新预报",
+  "evaluation_period": [
+    "2025-02-01",
+    "2025-12-31"
+  ],
+  "release_hours": [
+    0,
+    6,
+    12,
+    18
+  ],
+  "comparison_scope": "当前发布时刻至当天24:00，且旧版预报仍可覆盖的共同范围",
+  "interval_reconstruction": "当前实测边界锚定、小时节点线性插值、相邻端点梯形平均",
+  "inputs": {
+    "附件\\附件2.xlsx": "2e95fd446bfafa0d8c59577b5c2e2ea8b3f1def20dde54a3062556f4da9b4c72",
+    "附件\\附件3.xlsx": "8a61b06c52bd0d639a1cc37c61a7d9f5b75edcbca718f64c1bd3498ec9f9d843"
+  },
+  "program": {
+    "附件\\question3\\compare_forecast_versions.py": "b7dbd945d5024479cef7484781eb201dbf5fd4dfd60a4744e22013932bd120e6"
+  },
+  "outputs": {
+    "hourly_pairs": 18036,
+    "ten_minute_interval_pairs": 108216,
+    "workbook": "延伸预报与最新预报准确率对比.xlsx"
+  },
+  "runtime": {
+    "python": "3.13.5",
+    "numpy": "2.3.2",
+    "pandas": "2.3.2"
+  },
+  "reproduce_from_project_root": "python 附件/question3/compare_forecast_versions.py"
+}
