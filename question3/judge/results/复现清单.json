@@ -1,0 +1,24 @@
+{
+  "python": "3.13.9",
+  "numpy": "2.3.5",
+  "pandas": "2.3.3",
+  "matplotlib": "3.10.7",
+  "seed": 20260912,
+  "bootstrap_repetitions": 5000,
+  "block_lengths_days": [
+    7,
+    14
+  ],
+  "test_start": "2025-02-25",
+  "input_sha256": {
+    "F:\\work\\mcm2026\\CUMCM2026Problems\\C题\\附件\\question3\\第三问_完整计算\\第三问_完整计算\\results\\main\\H0\\daily.csv": "e02d7b8f45656995682d900cd363d2b59979e13682d151e548b07b23f95132fc",
+    "F:\\work\\mcm2026\\CUMCM2026Problems\\C题\\附件\\question3\\第三问_完整计算\\第三问_完整计算\\results\\main\\H0_6\\daily.csv": "3d22c85f67ced8acb2bf6a18ed8dcba6483f8ff99c7ed006c01531a5eb4d7c6c",
+    "F:\\work\\mcm2026\\CUMCM2026Problems\\C题\\附件\\question3\\第三问_完整计算\\第三问_完整计算\\results\\main\\H0_12\\daily.csv": "1b45a8f0d22dfcddf85dd060a77e860cc1811c49b6a9bc868ee39daba7b595f4",
+    "F:\\work\\mcm2026\\CUMCM2026Problems\\C题\\附件\\question3\\第三问_完整计算\\第三问_完整计算\\results\\main\\H0_18\\daily.csv": "e8ab1ff1f7ec20255a44879aca7dca3524815cad21cd25350de7684b4b666701",
+    "F:\\work\\mcm2026\\CUMCM2026Problems\\C题\\附件\\question3\\第三问_完整计算\\第三问_完整计算\\results\\main\\H0_6_12\\daily.csv": "49ebfdaba815524ea5fa6594c78ef85e93a27a55638a589cec9966e688e08e32",
+    "F:\\work\\mcm2026\\CUMCM2026Problems\\C题\\附件\\question3\\第三问_完整计算\\第三问_完整计算\\results\\main\\H0_6_18\\daily.csv": "197018a7e4206a3090a8f5e707d496a65d0f9514a4969d570ad55a88d74c0de4",
+    "F:\\work\\mcm2026\\CUMCM2026Problems\\C题\\附件\\question3\\第三问_完整计算\\第三问_完整计算\\results\\main\\H0_12_18\\daily.csv": "661c6e3da656bad1288e5eab1434cae59706f4ec0c5723327e87c8b1b8d37e90",
+    "F:\\work\\mcm2026\\CUMCM2026Problems\\C题\\附件\\question3\\第三问_完整计算\\第三问_完整计算\\results\\main\\H0_6_12_18\\daily.csv": "f814851e770638eaf99ead76ac56e6fd8ba99fee26703b2c67a78b1d6f1772e1"
+  },
+  "command": "F:\\miniconda3\\envs\\fond\\python.exe 附件\\question3\\judge\\analyze_forecast_value.py"
+}
